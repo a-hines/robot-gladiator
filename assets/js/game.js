@@ -30,7 +30,16 @@ var fightOrSkip = function() {
 
 // fight function
 var fight = function(enemy) {
+    // keep track of who goes first
+    var isPlayerTurn = true;
+
+    //randomly change turn order
+    if (Math.random() > 0.5){
+        isPlayerTurn = false;
+    }
+
     while (playerInfo.health > 0 && enemy.health > 0) {
+        if (isPlayerTurn) {
         if (fightOrSkip()) {
             break;
         }
@@ -53,7 +62,8 @@ var fight = function(enemy) {
             } else {
             window.alert(enemy.name+ " still has " + enemy.health + " health left.");
             }
-
+        // player gets attacked first
+        } else {
         // Subtract the value of 'enemy.attack' from the value of 'playerInfo.health' and use that result to update th value in the 'playerInfo.health' variable
         var damage = randomNumber(enemy.attack -3, enemy.attack);
         playerInfo.health = Math.max(0, playerInfo.health - damage);
@@ -69,6 +79,9 @@ var fight = function(enemy) {
             } else {
             window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
             } 
+        }
+        //switch turn order for next round
+        isPlayerTurn =!isPlayerTurn;
     } // end of while loop
 }; // end of fight function
 
